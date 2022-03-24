@@ -55,7 +55,7 @@
                         ID publication
                     </th>
                     <th class="text-left">
-                        ID Utilisateur
+                      Nom d'utilisateur
                     </th>
                     <th class="text-left">
                         Supprimer

@@ -65,8 +65,11 @@ exports.deletePost = async (req, res, next) => {
   });
   try {
     if (userId == post.UserId || userId == adminId) {
-      post.destroy();
-      console.log("succès");
+      const filename = post.imageUrl.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        post.destroy();
+        console.log("succès");
+      })
     } 
   } catch (err) {
     console.log(err);

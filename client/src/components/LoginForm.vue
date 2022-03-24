@@ -33,7 +33,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary" @click="login" :loading="loading" block>Connexion</v-btn>
+                <v-btn color="primary" @click="login" block>Connexion</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
