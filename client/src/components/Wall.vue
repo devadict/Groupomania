@@ -85,6 +85,7 @@
                 v-show="userId == post.UserId || isAdmin == 'true'"
                 @click="deletePost(post.id)"
                 right
+                rounded
                 small
                 > <v-icon>  mdi-delete </v-icon></v-btn>
               </v-card-actions>
@@ -106,6 +107,7 @@
                 v-show="userId == comment.UserId || isAdmin == 'true'"
                 depressed
                 right
+                rounded
                 small
                 > <v-icon>  mdi-delete </v-icon></v-btn>
               </v-card-title>

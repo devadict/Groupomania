@@ -33,7 +33,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary" @click="login" block>Connexion</v-btn>
+                <v-btn color="primary" @click="login" :loading="loading" block>Connexion</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -54,6 +54,7 @@ export default {
             user: {
                 email: '',
                 password: '',
+                loading: false,
                  emailRules: [
                     v => !!v || 'Entrez une adresse mail',
                     v => /.+@.+\..+/.test(v) || 'Adresse invalide',
@@ -71,6 +72,7 @@ export default {
   methods: {
    login() {
        if (this.$refs.form.validate()) {
+         this.loading = true;
            axios.post('http://localhost:3000/api/user/login', {
                email: this.user.email,
                 password: this.user.password,
@@ -79,6 +81,7 @@ export default {
                     localStorage.setItem("userId", response.data.UserId)
                     localStorage.setItem("token", response.data.token)
                     localStorage.setItem("isAdmin", response.data.isAdmin)
+                    this.loading = false;
                     this.$router.push('/feed');
                     } 
                 })
