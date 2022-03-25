@@ -6,7 +6,7 @@
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="4">
             <v-card elevation="12" max-width="500px" class="mx-auto">
-              <v-toolbar color="primary" dark flat>
+              <v-toolbar color="#0034BB" dark flat>
                 <v-toolbar-title>Connectez-vous </v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -33,7 +33,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary" @click="login" block>Connexion</v-btn>
+                <v-btn class="white--text" depressed color="#0034BB" @click="login" block>Connexion</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

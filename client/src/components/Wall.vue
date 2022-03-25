@@ -15,12 +15,13 @@
       <v-btn @click="logout" color="black" class="spacing yellow--text" right small>Déconnexion</v-btn>     
       </v-row>
 
-        <h3 class="text-center"> Ajoutez une publication </h3>
-
-        <v-card elevation="12" class="px-5 py-1 my-12">
+        <v-card elevation="12" class="py-1 my-12">
+             <v-toolbar color="#0034BB" dark flat>
+                <v-toolbar-title>Ajoutez une publication</v-toolbar-title>
+              </v-toolbar>
             <v-form
               ref="form"
-              class="spacing"
+              class="spacing px-5"
             >
               <v-text-field
                 v-model="title"
@@ -49,8 +50,8 @@
 
               <v-btn
                 right
-                color="success"
-                class="mr-4"
+                color="#0034BB"
+                class="mr-4 white--text"
                 @click="addPost"
               >
                 Publiez !
