@@ -69,7 +69,6 @@ export default {
             user: {
                 email: '',
                 password: '',
-                loading: false,
                 isAdmin: false,
                 username: '',
                 passwordRules: {          
@@ -101,7 +100,6 @@ export default {
     },
   methods: {
    signup() {
-       this.loading = true;
        if (this.$refs.form.validate()) {
            axios.post('http://localhost:3000/api/user/signup', {
                 email: this.user.email,
