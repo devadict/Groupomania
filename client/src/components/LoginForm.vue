@@ -54,7 +54,6 @@ export default {
             user: {
                 email: '',
                 password: '',
-                loading: false,
                  emailRules: [
                     v => !!v || 'Entrez une adresse mail',
                     v => /.+@.+\..+/.test(v) || 'Adresse invalide',
@@ -72,7 +71,6 @@ export default {
   methods: {
    login() {
        if (this.$refs.form.validate()) {
-         this.loading = true;
            axios.post('http://localhost:3000/api/user/login', {
                email: this.user.email,
                 password: this.user.password,
@@ -82,7 +80,7 @@ export default {
                     localStorage.setItem("token", response.data.token)
                     localStorage.setItem("isAdmin", response.data.isAdmin)
                     this.loading = false;
-                    this.$router.push('/feed');
+                    this.$router.push('/');
                     } 
                 })
                 .catch(err => err == "Error: Request failed with status code 401" ? alert("Vérifiez vos identifiants"): console.log(err));

@@ -1,71 +1,16 @@
 <template>
-  <!-- <div id="app"> -->
-    <v-app id="inspire">
-     
-      <v-main>
+
+     <v-main>
 
 
     <v-container fluid fill-height>
       <v-flex xs12 sm6 offset-sm3>
-     
-        <h1 class="text-center"> Bienvenue sur Groupomania </h1>
-        
+       
       <v-row class="mt-3 mx-2">
-      <v-btn v-show="isAdmin === 'true'" color="success" small @click="goAdmin"> Page Admin</v-btn> <v-spacer></v-spacer>
-      <v-btn @click="logout" color="black" class="spacing yellow--text" right small :loading="loading">Déconnexion</v-btn>     
+      <v-btn color="success" small to="/"> Retour </v-btn> <v-spacer></v-spacer>
       </v-row>
 
-        <v-card elevation="12" class="py-1 my-12">
-             <v-toolbar color="#0034BB" dark flat>
-                <v-toolbar-title>Ajoutez une publication</v-toolbar-title>
-              </v-toolbar>
-            <v-form
-              ref="form"
-              class="spacing px-5"
-            >
-              <v-text-field
-                v-model="title"
-                label="Titre"
-                :rules="inputRules"
-                required
-              ></v-text-field>
-
-              <v-text-field
-                v-model="description"
-                label="Description"
-                :rules="inputRules"
-                required
-              ></v-text-field>
-             
-              <v-file-input
-                id="image"
-                v-model="fileInput"
-                required
-                show-size
-                label="Ajoutez une image"
-                ref="fileInput"
-                @change="handleChange"
-              ></v-file-input>
-              <v-row class="my-2" justify="center">
-
-              <v-btn
-                right
-                color="#0034BB"
-                class="mr-4 white--text"
-                @click="addPost"
-                :loading="loading2"
-              >
-                Publiez !
-              </v-btn>
-            </v-row>
-
-            </v-form>
-            </v-card>
-
-           <h3 class="text-center mb-6"> Dernières publications </h3>
-
-
-            <v-card class="spacing"  v-for="post in posts" :key="post.id">
+            <v-card class="spacing"  >
             <div v-if="post.imageUrl">
              <v-img
                 :src="post.imageUrl.replace('/vid-api', '')"
@@ -124,58 +69,48 @@
         </v-container>
 
       </v-main>
-
- 
-    </v-app>
-<!-- </div> -->
+    
 </template>
 
 <script>
 import axios from 'axios';
 export default {
-  data() {
+data() {
     return {
-     posts: [],
-     comments: [],
+     post: {},
      userId: "",
-     loading2: false,
-     loading: false,
      token: "",
-     sended: "",
-     image: "",
-     fileInput: [],
      isAdmin: false,
-     title: "",
-     description: "",
-     comment: "",
+     comments: [],
      inputRules: [
         v => !!v || 'Ce champ ne peut pas être vide',
         v => v.length >= 3 || 'Pas assez long'
       ]
     }
-  },
+},
 
- created() {
+created() {
     this.userId = localStorage.getItem("userId");
     this.token = localStorage.getItem("token");
     this.isAdmin = localStorage.getItem("isAdmin");
-    this.fetchPost();
     this.fetchComments();
-  },
-  methods: {
-    logout() {
-        this.loading = true;
-        localStorage.clear();
-        this.$router.push('/auth');
-    }, 
-    handleChange() {
-     console.log(this.fileInput);  
-    },
-    async goAdmin() {
-        this.isAdmin == 'true' ? this.$router.push('/admin') : alert("Vous n'avez pas accès à cette page"); 
-    },
-  async addCom(id) {
-     const token = this.token;
+     axios.get(`http://localhost:3000/api/post/${this.$route.params.id}`,
+       { headers: {
+          Authorization : `Bearer ${this.token}`,
+         
+        }})
+     .then((res) => {
+       let post = res.data;
+ 
+         console.log(post);
+
+         return this.post = res.data
+       });
+},
+
+methods: {
+     async addCom(id) {
+     const token = this.token
      await axios.post(`http://localhost:3000/api/comment/${id}`, 
         {PostId : id, content: this.comment},
        { headers: {
@@ -183,48 +118,6 @@ export default {
         } 
       }).then((response) => response.status >= 200 || response.status <= 201 ? location.reload(true) : console.log(response.status))
         .catch(error => console.log(error)) ;
-    },
-
-  async addPost() {
-     let formData = new FormData();
-    
-        formData.append('title', this.title);
-        formData.append('content', this.description);
-  await formData.append('image', this.fileInput);
-
-
-    if(this.$refs.form.validate()) {
-      this.loading2 = true;
-          const token = this.token;
-      await axios.post(`http://localhost:3000/api/post/`, 
-        formData,
-       { headers: {
-          Authorization: `Bearer ${token}`,
-        } 
-      }).then(
-        this.title = "",
-        this.description = "",
-        this.fileInput = [],
-      ).then((response) => response.status >= 200 || response.status <= 201 ? location.reload(true) : console.log(response.statusText))
-       .catch(error => console.log(error)) 
-    }
-    },
-
-    async fetchPost() {
-    const token = this.token;
-    
-    await axios.get(`http://localhost:3000/api/post/`,
-       { headers: {
-          Authorization : `Bearer ${token}`,
-         
-        }})
-     .then((res) => {
-       let posts = res.data;
- 
-         console.log(posts)
-       
-         return this.posts = res.data
-       });
     },
 
     async fetchComments() {
@@ -238,8 +131,7 @@ export default {
         return this.comments = res.data
        });
     },
-
-  async deletePost(id) {
+     async deletePost(id) {
     const token = this.token;
     if(confirm("Vous allez supprimez cette publication")) {
       await axios.delete(`http://localhost:3000/api/post/delete/${id}`,
@@ -253,10 +145,8 @@ export default {
 
   async deleteComment(id) {
     const token = this.token;
-        if(confirm("Vous allez supprimez ce commentaire")) {
-
-          
-          await axios.delete(`http://localhost:3000/api/comment/delete/${id}`,
+        if(confirm("Vous allez supprimez ce commentaire")) {  
+        await axios.delete(`http://localhost:3000/api/comment/delete/${id}`,
       { headers: {
         Authorization: `Bearer ${token}`,
         }
@@ -265,13 +155,28 @@ export default {
        .catch(error => console.log(error))
         }
     }
-  }
-};
+  },
+
+    async fetchPost(id) {       
+    const token = this.token;   
+    await axios.get(`http://localhost:3000/api/post/${id}`,
+       { headers: {
+          Authorization : `Bearer ${token}`,
+         
+        }})
+     .then((res) => {
+       let post = res.data;
+ 
+         console.log(post);
+
+         return this.post = res.data
+       });
+    },
+}
+
 
 </script>
 
 <style scoped>
-.spacing  {
-  margin-bottom: 3rem;
-}
+
 </style>

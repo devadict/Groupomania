@@ -3,18 +3,11 @@ import VueRouter from 'vue-router'
 import User from '../components/User'
 import Wall from '../components/Wall'
 import Admin from '../components/Admin'
-
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'User',
-    component: User,
-  },
- 
-  {
-    path: '/feed',
     name: 'Wall',
     component: Wall,
   },
@@ -22,7 +15,12 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: Admin,
-    },
+  },
+  {
+    path: '/auth',
+    name: 'User',
+    component: User,
+  }
 ];
 
 
@@ -34,17 +32,17 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const Access = ["/"]
+  const Access = ['/auth']
   const pagesVerif = !Access.includes(to.path)
   const loggedIn = localStorage.getItem("userId")
   const isAdmin = localStorage.getItem("isAdmin")
   const localToken = localStorage.getItem("token")
   if (pagesVerif && !loggedIn && !localToken) {
-      return next("/")
+      return next('/auth')
   }
   if (to.fullPath === '/admin') {
     if (isAdmin != "true") {
-      next('/feed')
+      next('/')
     }
   }
   next()

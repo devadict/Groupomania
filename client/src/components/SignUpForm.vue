@@ -48,7 +48,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn depressed class="white--text" color="#0034BB" @click="signup" block>Inscrivez-vous</v-btn>
+                <v-btn depressed class="white--text" color="#0034BB" @click="signup" block :loading="loading">Inscrivez-vous</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -69,6 +69,7 @@ export default {
             user: {
                 email: '',
                 password: '',
+                loading: false,
                 isAdmin: false,
                 username: '',
                 passwordRules: {          
@@ -100,6 +101,7 @@ export default {
     },
   methods: {
    signup() {
+       this.loading = true;
        if (this.$refs.form.validate()) {
            axios.post('http://localhost:3000/api/user/signup', {
                 email: this.user.email,
@@ -112,7 +114,7 @@ export default {
                     localStorage.setItem("token", response.data.token)
                     localStorage.setItem("isAdmin", response.data.isAdmin)
                     console.log(response);
-                    this.$router.push('/feed');
+                    this.$router.push('/');
                     } 
                     console.log(response);
                 }).catch(err => err == "Error: Request failed with status code 401" ? alert("Utilisateur existant"): console.log(err));
