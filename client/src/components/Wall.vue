@@ -8,7 +8,7 @@
     <v-container fluid fill-height>
       <v-flex xs12 sm6 offset-sm3>
      
-        <h1 class="text-center"> Bienvenue sur Groupomania {{username}} </h1>
+        <h1 class="text-center"> Bienvenue sur Groupomania</h1>
         
       <v-row class="mt-3 mx-2">
       <v-btn v-show="isAdmin === 'true'" color="success" small @click="goAdmin"> Page Admin</v-btn> <v-spacer></v-spacer>
