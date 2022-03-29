@@ -68,7 +68,7 @@
             <v-card class="spacing"  v-for="post in posts" :key="post.id">
             <div v-if="post.imageUrl">
              <v-img
-                :src="post.imageUrl.replace('/vid-api', '')"
+                :src="post.imageUrl"
                 aspect-ratio="2.75"
               ></v-img>
             </div>
@@ -137,7 +137,6 @@ export default {
     return {
      posts: [],
      comments: [],
-     username: "",
      userId: "",
      loading2: false,
      loading: false,
@@ -160,7 +159,6 @@ export default {
     this.userId = localStorage.getItem("userId");
     this.token = localStorage.getItem("token");
     this.isAdmin = localStorage.getItem("isAdmin");
-    this.username = localStorage.getItem("username");
     this.fetchPost();
     this.fetchComments();
   },

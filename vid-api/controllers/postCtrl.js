@@ -14,7 +14,7 @@ exports.createPost = async (req, res, next) => {
     content: req.body.content,
     title: req.body.title,
     UserId: userId,
-    imageUrl: req.file ? `${req.protocol}://${req.get("host")}/vid-api/images/${req.file.filename}` : "",
+    imageUrl: req.file ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}` : "",
   }).then((post) => res.status(201).json({ post }));
   console.log(post);
 };
