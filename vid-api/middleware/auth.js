@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const jwt_token_secret_string = "qfehfqeilfudff5heziufzqqlbfbvlqfqdf3qd";
 require("dotenv").config();
 
 

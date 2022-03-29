@@ -79,6 +79,7 @@ export default {
                     localStorage.setItem("userId", response.data.UserId)
                     localStorage.setItem("token", response.data.token)
                     localStorage.setItem("isAdmin", response.data.isAdmin)
+                    localStorage.setItem("username", response.data.username)
                     this.loading = false;
                     this.$router.push('/');
                     } 

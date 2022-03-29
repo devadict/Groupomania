@@ -1,9 +1,6 @@
 const db = require("../models");
-const express = require("express");
-const multer = require("../middleware/multer-config");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
-const jwt_token_secret_string = "qfehfqeilfudff5heziufzqqlbfbvlqfqdf3qd";
 
 require("dotenv").config();
 

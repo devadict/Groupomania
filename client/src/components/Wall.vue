@@ -8,7 +8,7 @@
     <v-container fluid fill-height>
       <v-flex xs12 sm6 offset-sm3>
      
-        <h1 class="text-center"> Bienvenue sur Groupomania </h1>
+        <h1 class="text-center"> Bienvenue sur Groupomania {{username}} </h1>
         
       <v-row class="mt-3 mx-2">
       <v-btn v-show="isAdmin === 'true'" color="success" small @click="goAdmin"> Page Admin</v-btn> <v-spacer></v-spacer>
@@ -137,6 +137,7 @@ export default {
     return {
      posts: [],
      comments: [],
+     username: "",
      userId: "",
      loading2: false,
      loading: false,
@@ -159,6 +160,7 @@ export default {
     this.userId = localStorage.getItem("userId");
     this.token = localStorage.getItem("token");
     this.isAdmin = localStorage.getItem("isAdmin");
+    this.username = localStorage.getItem("username");
     this.fetchPost();
     this.fetchComments();
   },

@@ -48,7 +48,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn depressed class="white--text" color="#0034BB" @click="signup" block :loading="loading">Inscrivez-vous</v-btn>
+                <v-btn depressed class="white--text" color="#0034BB" @click="signup" block>Inscrivez-vous</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -111,6 +111,7 @@ export default {
                     localStorage.setItem("userId", response.data.UserId)
                     localStorage.setItem("token", response.data.token)
                     localStorage.setItem("isAdmin", response.data.isAdmin)
+                    localStorage.setItem("username", response.data.username)
                     console.log(response);
                     this.$router.push('/');
                     } 

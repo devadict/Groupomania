@@ -1,13 +1,8 @@
 const db = require('../models');
 const bcrypt =require('bcrypt');
 const mailValidator = require('email-validator');
-const express = require("express");
 let passwordValidator =  require('password-validator');
-const multer = require('../middleware/multer-config')
-const fs = require('fs');
-const router = express.Router();
 const jwt = require('jsonwebtoken'); 
-const jwt_token_secret_string = "qfehfqeilfudff5heziufzqqlbfbvlqfqdf3qd"
 require("dotenv").config();
 
 
@@ -72,7 +67,7 @@ exports.login = async (req, res, next) => {
               { expiresIn: '24h' }
             ),
             isAdmin: user.isAdmin,
-            user
+            username: user.username
           });     
         })
         .catch(error => res.status(500).json({ message: error }));

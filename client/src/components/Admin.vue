@@ -10,8 +10,8 @@
           <v-flex xs12 sm6 offset-sm3>
             
                   <v-row class="mt-3">
-                    <v-btn v-show="isAdmin === 'true'" color="success"  to="/"> Mur </v-btn> <v-spacer></v-spacer>
-                    <v-btn @click="logout" color="black" class="spacing yellow--text" right :loading="loading">Déconnexion</v-btn>     
+                <v-spacer></v-spacer>  <v-btn v-show="isAdmin === 'true'" color="success"  to="/"> Mur </v-btn> <v-spacer></v-spacer>
+                    <v-btn @click="logout" color="black" class="spacing yellow--text" right :loading="loading">Déconnexion</v-btn>   <v-spacer></v-spacer>  
                   </v-row>
 
               <!-- <v-btn to="/feed"> Feed </v-btn>  -->
@@ -35,13 +35,13 @@
                 </thead>
                 <tbody > 
                     <tr
-                    v-for="user in users.filter((user) => {return user.id != 1})" 
+                    v-for="user in users" 
                     :key="user.id"
                     >
                     <td>{{ user.username }}</td>
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
-                    <td> <v-btn @click="deleteUser(user.id)"><v-icon dense color="red"> mdi-delete </v-icon></v-btn></td>
+                    <td> <v-btn v-show="user.id != 1" @click="deleteUser(user.id)"><v-icon dense color="red"> mdi-delete </v-icon></v-btn></td>
                     </tr>
                 </tbody>      
             </v-simple-table>
@@ -214,7 +214,8 @@ export default {
 
     async deleteUser(id) {
     const token = this.token;
-        if(confirm("Vous allez supprimez cet utilisateur")) {
+
+        if(confirm("Vous allez supprimez cet utilisateur") ) {
 
           await axios.delete(`http://localhost:3000/api/user/${id}`,
       { headers: {
