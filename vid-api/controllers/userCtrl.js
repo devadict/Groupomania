@@ -93,7 +93,7 @@ exports.deleteUser = async (req, res, next) => {
 
 
     try {
-        if (userId == user.id || userId == adminId) {
+        if (userId == user.id && user.id != 1 || userId == adminId) {
       await user.destroy();
       return res.status(201).json({ message: "Utilisateur supprimé"})
        }

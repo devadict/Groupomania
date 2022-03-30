@@ -215,7 +215,7 @@ export default {
     async deleteUser(id) {
     const token = this.token;
 
-        if(confirm("Vous allez supprimez cet utilisateur") ) {
+        if(confirm("Vous allez supprimez cet utilisateur")) {
 
           await axios.delete(`http://localhost:3000/api/user/${id}`,
       { headers: {
