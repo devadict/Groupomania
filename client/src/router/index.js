@@ -10,6 +10,7 @@ const routes = [
     path: '/',
     name: 'Wall',
     component: Wall,
+   
   },
   {
     path: '/admin',
@@ -20,6 +21,13 @@ const routes = [
     path: '/auth',
     name: 'User',
     component: User,
+    beforeEnter: (to, from, next) => { 
+      const localToken = localStorage.getItem("token")
+      if (localToken != null) {
+        next('/');
+      }
+      next();
+    }
   }
 ];
 
