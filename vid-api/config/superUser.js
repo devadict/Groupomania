@@ -4,13 +4,13 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 function superUser(req, res) {
-    db.User.findOne({ where: { email: "admin@admin.com" } || { username: "Administrateur" } })
+    db.User.findOne({ where: { email: process.env.ADMIN_MAIL} || { username: process.env.ADMIN_USER } })
         .then((user) => {
             if (!user) {
                 bcrypt.hash(process.env.ADMIN_PWD, 10)
                     .then((hash) => {
                         db.User.create({
-                            username: "Administrateur",
+                            username: process.env.ADMIN_USER,
                             email: process.env.ADMIN_MAIL,
                             password: hash,
                             isAdmin: true,
