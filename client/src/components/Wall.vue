@@ -116,10 +116,7 @@
                
                </v-card>
             </v-card>
-            
-
-      
-            
+                        
           </v-flex>
         </v-container>
 

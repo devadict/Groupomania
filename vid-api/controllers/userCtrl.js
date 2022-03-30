@@ -22,29 +22,30 @@ exports.signup = async (req, res, next) => {
     if (newUser) {
       return res.status(401).json({ error: 'Email existant !' });
     }
-  });
+   else if (!mailValidator.validate(req.body.email) || (!schema.validate(req.body.password))) {  
+      throw { error: " Schema invalide" }  
+    } else if (mailValidator.validate(req.body.email) && (schema.validate(req.body.password)))
+    bcrypt.hash(req.body.password, 10)
+        .then(hash => {
+          db.User.create({
+            username: req.body.username,
+            email: req.body.email,
+            isAdmin: req.body.isAdmin == true ? true : false,
+            password: hash,
+          }).then((user) => res.status(201).json({
+            UserId: user.id,
+            token: jwt.sign(
+              { userId: user.id},
+              process.env.TOKEN_KEY,
+              { expiresIn: '24h' }
+            ),
+            isAdmin: user.isAdmin,
+            user
+          }));
+        })
+  })
     
-    if (!mailValidator.validate(req.body.email) || (!schema.validate(req.body.password))) {  
-        throw { error: " Schema invalide" }  
-      } else if (mailValidator.validate(req.body.email) && (schema.validate(req.body.password)))
-      bcrypt.hash(req.body.password, 10)
-          .then(hash => {
-            db.User.create({
-              username: req.body.username,
-              email: req.body.email,
-              isAdmin: req.body.isAdmin == true ? true : false,
-              password: hash,
-            }).then((user) => res.status(201).json({
-              UserId: user.id,
-              token: jwt.sign(
-                { userId: user.id},
-                process.env.TOKEN_KEY,
-                { expiresIn: '24h' }
-              ),
-              isAdmin: user.isAdmin,
-              user
-            }));
-          })
+   
           .catch(error => res.status(500).json({error}));
 }
 

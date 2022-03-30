@@ -34,16 +34,18 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.User.hasMany(db.Post);
+db.User.hasMany(db.Post, {onDelete:'CASCADE'});
 db.Post.belongsTo(db.User, {
   foreignKey: {
-    allowNull: false
+    allowNull: false,
+    onDelete:'CASCADE'
   }
 });
-db.User.hasMany(db.Comment);
+db.User.hasMany(db.Comment, {onDelete:'CASCADE'});
 db.Comment.belongsTo(db.User, {
   foreignKey: {
-    allowNull: false
+    allowNull: false,
+    onDelete:'CASCADE'
   }
 });
 

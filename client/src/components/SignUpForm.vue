@@ -40,7 +40,7 @@
                             user.passwordRules.atleastOneLowerCaseCharacter,
                             user.passwordRules.atleastOneUpperCaseCharacter,
                             user.passwordRules.atleastOneDigit,
-                            user.passwordRules.atleastOneSymbol,]"
+                            user.passwordRules.atleastOneSymbol]"
                     prepend-icon="mdi-lock"
                     type="password"
                     required
@@ -86,7 +86,10 @@ export default {
                 },
                     nameRules: [
                         v => !!v || 'Ajoutez un nom',
+                        (value) =>/(?=.*[^\s-])/.test(value) || "Pas d'espace",
                         v => (v && v.length <= 15) || 'Choisissez-en un plus court',
+                        v => (v && v.length >= 5) || '5 caractères au moins',
+                        
                     ],
                     emailRules: [
                         v => !!v || 'Ajoutez une adresse mail',
