@@ -51,5 +51,5 @@ db.sequelize.sync().then(function () {
       console.log("Listening on " + bind);
     });
     server.listen(port);
-    require("./config/superUser"); // la fonction setAdmin est appelée
+    require("./config/superUser");
 });

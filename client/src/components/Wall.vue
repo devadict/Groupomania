@@ -7,16 +7,21 @@
 
     <v-container fluid fill-height>
       <v-flex xs12 sm6 offset-sm3>
-     
-        <h1 class="text-center"> Bienvenue sur Groupomania</h1>
+          <v-card elevation="0" height="300">
+         <v-img
+                src="../assets/icon.png"
+                aspect-ratio="1.75"
+                contain
+              ></v-img>
+          </v-card>
         
       <v-row class="mt-3 mx-2">
       <v-btn v-show="isAdmin === 'true'" color="success" small @click="goAdmin"> Page Admin</v-btn> <v-spacer></v-spacer>
-      <v-btn @click="logout" color="black" class="spacing yellow--text" right small :loading="loading">Déconnexion</v-btn>     
+      <v-btn @click="logout" color="red" class="spacing white--text" right small :loading="loading">Déconnexion</v-btn>     
       </v-row>
 
-        <v-card elevation="12" class="py-1 my-12">
-             <v-toolbar color="#0034BB" dark flat>
+        <v-card elevation="12" class="pb-1 my-12">
+             <v-toolbar color="#ff4500" dark flat>
                 <v-toolbar-title>Ajoutez une publication</v-toolbar-title>
               </v-toolbar>
             <v-form
@@ -50,7 +55,8 @@
 
               <v-btn
                 right
-                color="#0034BB"
+                color="#ff4500"
+                elevation="0"
                 class="mr-4 white--text"
                 @click="addPost"
                 :loading="loading2"
@@ -151,7 +157,6 @@ export default {
       ]
     }
   },
-
  created() {
     this.userId = localStorage.getItem("userId");
     this.token = localStorage.getItem("token");
@@ -181,15 +186,12 @@ export default {
       }).then((response) => response.status >= 200 || response.status <= 201 ? location.reload(true) : console.log(response.status))
         .catch(error => console.log(error)) ;
     },
-
   async addPost() {
      let formData = new FormData();
     
         formData.append('title', this.title);
         formData.append('content', this.description);
   await formData.append('image', this.fileInput);
-
-
     if(this.$refs.form.validate()) {
       this.loading2 = true;
           const token = this.token;
@@ -206,7 +208,6 @@ export default {
        .catch(error => console.log(error)) 
     }
     },
-
     async fetchPost() {
     const token = this.token;
     
@@ -223,7 +224,6 @@ export default {
          return this.posts = res.data
        });
     },
-
     async fetchComments() {
     const token = await this.token;
     await axios.get(`http://localhost:3000/api/comment/`,
@@ -235,7 +235,6 @@ export default {
         return this.comments = res.data
        });
     },
-
   async deletePost(id) {
     const token = this.token;
     if(confirm("Vous allez supprimez cette publication")) {
@@ -247,11 +246,9 @@ export default {
        .catch(error => console.log(error))
            }
     },
-
   async deleteComment(id) {
     const token = this.token;
         if(confirm("Vous allez supprimez ce commentaire")) {
-
           
           await axios.delete(`http://localhost:3000/api/comment/delete/${id}`,
       { headers: {
@@ -264,7 +261,6 @@ export default {
     }
   }
 };
-
 </script>
 
 <style scoped>

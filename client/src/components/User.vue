@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <v-main class="no">
-      <h1 class="text-center">Bienvenue sur Groupomania</h1>   
+          <v-container fluid fill-height>
+      <v-flex xs12 sm6 offset-sm3>
+      <h1 class="text-center">Bienvenue sur Groupomania</h1> 
     <div class="placement">
     <component  :is="showWhich"></component>  
     </div>
@@ -22,6 +24,8 @@
  </v-row>
    
  </v-card>
+</v-flex>
+</v-container>
 
     </v-main>
 
@@ -31,7 +35,6 @@
 <script>
 import LoginForm from "./LoginForm.vue";
 import SignUpForm from "./SignUpForm.vue";
-
 export default {
   components: {
       LoginForm,
@@ -55,5 +58,6 @@ export default {
 }
 .no {
   overflow: hidden;
+  margin-top: -25rem;
 }
 </style>

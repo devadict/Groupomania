@@ -10,8 +10,8 @@
           <v-flex xs12 sm6 offset-sm3>
             
                   <v-row class="mt-3">
-                <v-spacer></v-spacer>  <v-btn v-show="isAdmin === 'true'" color="success"  to="/"> Mur </v-btn> <v-spacer></v-spacer>
-                    <v-btn @click="logout" color="black" class="spacing yellow--text" right :loading="loading">Déconnexion</v-btn>   <v-spacer></v-spacer>  
+                <v-spacer></v-spacer>  <v-btn v-show="isAdmin === 'true'" color="primary"  to="/"> Mur </v-btn> <v-spacer></v-spacer>
+                    <v-btn @click="logout" color="red" class="spacing white--text" right :loading="loading">Déconnexion</v-btn>   <v-spacer></v-spacer>  
                   </v-row>
 
               <!-- <v-btn to="/feed"> Feed </v-btn>  -->

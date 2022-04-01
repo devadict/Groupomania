@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <v-main >
+    <v-main class="mt-1">
     
       <v-container fluid class="fill-height bg">
         <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="4">
-            <v-card elevation="12" max-width="500px" class="mx-auto mt-8">
-              <v-toolbar color="#0034BB" dark flat>
+          <v-col>
+            <v-card elevation="12" class="mx-auto mt-8">
+              <v-toolbar color="#ff4500" dark flat>
                 <v-toolbar-title>Inscription</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -48,7 +48,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn depressed class="white--text" color="#0034BB" @click="signup" block>Inscrivez-vous</v-btn>
+                <v-btn depressed class="white--text" color="#ff4500" @click="signup" block>Inscrivez-vous</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
