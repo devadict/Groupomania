@@ -3,14 +3,16 @@
     <v-main class="no">
           <v-container fluid fill-height>
       <v-flex xs12 sm6 offset-sm3>
-      <h1 class="text-center">Bienvenue sur Groupomania</h1> 
+      <h1 class="text-center">Bienvenue sur <span class="hi"> Groupomania </span></h1> 
     <div class="placement">
     <component  :is="showWhich"></component>  
     </div>
     
          <v-card
-    class="mx-auto py-6 px-4 newm"
+    class="hey mx-auto py-6 px-4 newm"
     max-width="500px"
+    outlined
+    rounded
   > 
  <v-row justify="center">
    <v-col>
@@ -53,8 +55,15 @@ export default {
 .newm {
   margin-top: -5em;
 }
+.hey{
+  border: 1px solid #ff4500;
+}
 .placement {
   max-height: 8em;
+}
+
+.hi{
+ color: #ff4500;
 }
 .no {
   overflow: hidden;
