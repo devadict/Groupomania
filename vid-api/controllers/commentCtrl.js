@@ -8,8 +8,8 @@ exports.getAllComments = async (req, res, next) => {
   await db.Comment.findAll({
         attributes: ["UserId", "id", "content", "createdAt", "PostId"],
         order: [["createdAt", "DESC"]],
-        include: [db.User],
-        // where: {PostId: req.params.id}  
+        include: [db.User, db.Post],
+       
     })
         .then(comments => res.send(comments));
     

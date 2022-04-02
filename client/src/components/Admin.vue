@@ -52,10 +52,10 @@
                 <thead>
                     <tr>
                     <th class="text-left">
-                        ID publication
+                        Publication
                     </th>
                     <th class="text-left">
-                      Nom d'utilisateur
+                     Auteur
                     </th>
                     <th class="text-left">
                         Supprimer
@@ -67,8 +67,8 @@
                     v-for="post in posts"
                     :key="post.id"
                     >
-                    <td>{{ post.id }}</td>
-                    <td>{{ post.UserId }}</td>
+                    <td>{{ post.title }} <br> {{post.content}}</td>
+                    <td>{{ post.User.username }}</td>
                     <td> <v-btn @click="deletePost(post.id)"><v-icon dense color="red"> mdi-delete </v-icon></v-btn></td>
                     </tr>
                 </tbody>      
@@ -80,13 +80,13 @@
                 <thead>
                     <tr>
                     <th class="text-left">
-                        Référence publication
+                       Publication 
                     </th>
                     <th class="text-left">
-                        Référence Utilisateur
+                        Auteur commentaire
                     </th>
                     <th class="text-left">
-                        Référence Commentaire
+                      Commentaire
                     </th>
                     <th class="text-left">
                         Supprimer
@@ -98,9 +98,9 @@
                     v-for="comment in comments"
                     :key="comment.id"
                     >
-                    <td>{{ comment.PostId }}</td>
-                    <td>{{ comment.UserId }}</td>
-                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.Post.title }} <br> {{comment.Post.content}}</td>
+                    <td>{{ comment.User.username }}</td>
+                    <td>{{ comment.content }}</td>
                     <td> <v-btn @click="deleteComment(comment.id)"><v-icon dense color="red"> mdi-delete </v-icon></v-btn></td>
                     </tr>
                 </tbody>      
@@ -159,7 +159,7 @@ export default {
         }})
      .then(res => {
        this.posts = res.data
-       }).then(console.log(this.posts));
+       })
     },
 
     async  fetchComments() {
@@ -169,8 +169,7 @@ export default {
         }})
      .then(res => {
        this.comments = res.data
-       })
-     .then(console.log(this.comments));
+       }).then(console.log(this.comments));
     },
     async fetchUsers() {
        const token = this.token;
@@ -182,7 +181,7 @@ export default {
       .then(res => {
         this.users = res.data
         })
-      .then(console.log(this.comments));
+      
     },
 
      async deletePost(id) {
